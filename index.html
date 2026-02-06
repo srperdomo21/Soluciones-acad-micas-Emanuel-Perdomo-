@@ -1,91 +1,278 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soluciones Académicas - Emanuel  Perdomo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Servicios académicos</title>
     <style>
-        :root { --bhd-blue: #004a99; --wa-green: #25D366; --light-bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--light-bg); margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .header { text-align: center; margin-bottom: 25px; }
-        .slogan { font-style: italic; color: #666; font-size: 0.9em; margin-top: 5px; }
-        
-        .payment-card { background: #eef5ff; border: 1px solid #d0e3ff; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
-        .payment-card h3 { margin-top: 0; color: var(--bhd-blue); font-size: 1.1em; }
-        
-        label { display: block; font-weight: bold; margin: 15px 0 5px; font-size: 0.9em; }
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1em; }
-        
-        .btn-send { background: var(--wa-green); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-send:active { transform: scale(0.98); }
-        .note { font-size: 0.8em; color: #888; text-align: center; margin-top: 15px; }
+        :root{
+            --bg1: #0f2027;
+            --bg2: #203a43;
+            --bg3: #2c5364;
+            --glass: rgba(255,255,255,0.1);
+            --glass-strong: rgba(255,255,255,0.9);
+            --accent: #00f2fe;
+            --accent-2: #4facfe;
+            --wa: #25D366;
+        }
+        html,body{height:100%;}
+
+        body {
+            background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 560px;
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        h1 { color: var(--accent); margin: 0; text-align: center; font-size: 1.6rem; }
+        .slogan { color: var(--accent-2); font-style: italic; font-size: 0.95rem; text-align: center; margin-bottom: 18px; }
+
+        .info-box {
+            background: var(--glass-strong);
+            color: #222;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+            border-left: 6px solid #004a99;
+        }
+
+        form { margin-top: 6px; }
+        .field {
+            margin: 8px 0 14px;
+        }
+        label { display: block; margin-bottom: 6px; font-size: 0.95rem; color: var(--accent); }
+        input[type="text"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            box-sizing: border-box;
+            background: var(--glass-strong);
+            font-size: 1rem;
+            color: #111;
+            outline: none;
+        }
+        select { appearance: none; }
+
+        .row {
+            display:flex;
+            gap:10px;
+        }
+        .row .col { flex:1; }
+
+        .meta {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:8px;
+            font-size:0.86rem;
+            color:#e8f6ff;
+        }
+        .char-count { font-size:0.82rem; color:#cfefff; }
+
+        .btn-wa {
+            background: var(--wa);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+        .btn-wa:active { transform: translateY(1px) scale(.995); }
+        .btn-wa:focus { box-shadow: 0 6px 30px rgba(37,211,102,0.35); outline: none; }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 28px;
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width:480px){
+            .container{ padding:20px; max-width: 420px; }
+            h1{ font-size:1.25rem;}
+        }
     </style>
 </head>
 <body>
+<div class="container" role="main" aria-labelledby="titulo">
+    <h1 id="titulo">Emanuel Perdomo</h1>
+    <p class="slogan">"No te preocupes ni te estreses, somos la solución a tus problemas"</p>
 
-<div class="container">
-    <div class="header">
-        <h2 style="margin:0; color: var(--bhd-blue);">Emanuel Perdomo</h2>
-        <p class="slogan">"No te preocupes ni te estreses, somos la solución a tus problemas"</p>
+    <div class="info-box" aria-live="polite">
+        <strong>📝 ¿Cómo funciona?</strong><br>
+        1. Elige tu servicio y detalla lo que necesitas.<br>
+        2. Envía el pedido por WhatsApp.<br>
+        3. Te responderé con el <b>presupuesto</b> y tiempo de entrega.
     </div>
 
-    <div class="payment-card">
-        <h3>💳 Datos de Pago (BHD)</h3>
-        <p style="margin: 5px 0;"><strong>Cuenta de Ahorros:</strong> 34729070012</p>
-        <p style="margin: 5px 0;"><strong>Titular:</strong>Joan Emanuel Acosta  Perdomo</p>
-    </div>
+    <form id="orderForm" onsubmit="return false;" aria-describedby="form-help">
+        <div id="form-help" style="display:none">Formulario para solicitar presupuesto vía WhatsApp</div>
 
-    <form id="orderForm">
-        <label>Tu Nombre</label>
-        <input type="text" id="nombre" placeholder="Escribe tu nombre" required>
+        <div class="field">
+            <label for="nombre">Nombre del Cliente</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required aria-required="true">
+        </div>
 
-        <label>¿Qué necesitas que haga?</label>
-        <textarea id="descripcion" rows="4" placeholder="Explícame tu trabajo, tarea o diapositiva..." required></textarea>
+        <div class="row">
+            <div class="col field">
+                <label for="servicio">¿Qué necesitas?</label>
+                <select id="servicio" name="servicio" aria-label="Servicio solicitado">
+                    <option value="Diapositivas">Diapositivas (PowerPoint)</option>
+                    <option value="Página Web">Página Web / Programas</option>
+                    <option value="Trabajo en Word">Trabajo escrito (Word)</option>
+                    <option value="Excel">Hojas de Cálculo (Excel)</option>
+                    <option value="Otro">Otro tipo de proyecto</option>
+                </select>
+            </div>
 
-        <label>Tipo de Trabajo</label>
-        <select id="tipo">
-            <option value="Diapositivas">Diapositivas</option>
-            <option value="Trabajo Escrito">Trabajo Escrito</option>
-            <option value="Proyecto Completo">Proyecto Completo</option>
-            <option value="Otro">Otro</option>
-        </select>
+            <div class="col field">
+                <label for="telefono">Teléfono (WhatsApp)</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+1 829 957 5543" aria-describedby="telefono-help" inputmode="tel">
+                <div id="telefono-help" class="meta" style="margin-top:6px;">
+                    <span style="font-size:0.86rem;color:#dff6ff">Incluye código de país. Ej: 549112345678</span>
+                </div>
+            </div>
+        </div>
 
-        <label>Monto pagado ($)</label>
-        <input type="number" id="monto" placeholder="Ej: 500" required>
+        <div class="field">
+            <label for="detalle">Detalles del trabajo (Cantidad de páginas, tema, etc.)</label>
+            <textarea id="detalle" name="detalle" rows="5" maxlength="2000" placeholder="Explícame bien lo que necesitas para darte un precio justo..." required aria-required="true"></textarea>
+            <div class="meta" style="margin-top:6px;">
+                <span class="char-count" id="charCount">0 / 2000</span>
+            </div>
+        </div>
 
-        <button type="button" class="btn-send" onclick="enviarPedido()">
-            Enviar Pedido por WhatsApp
+        <button type="button" class="btn-wa" id="submitBtn" onclick="enviarConsulta()" aria-label="Solicitar presupuesto por WhatsApp">
+            📲 SOLICITAR PRESUPUESTO
         </button>
     </form>
-
-    <p class="note">Al hacer clic, se abrirá WhatsApp para que adjuntes la captura de tu comprobante.</p>
 </div>
 
-<script>
-    function enviarPedido() {
-        const nombre = document.getElementById('nombre').value;
-        const desc = document.getElementById('descripcion').value;
-        const tipo = document.getElementById('tipo').value;
-        const monto = document.getElementById('monto').value;
-        const telefono = "18299575543"; // Tu número según el banner
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-        if(!nombre || !desc || !monto) {
-            alert("Por favor rellena todos los campos.");
+<script>
+    // Elementos
+    const nombreEl = document.getElementById('nombre');
+    const servicioEl = document.getElementById('servicio');
+    const detalleEl = document.getElementById('detalle');
+    const telefonoEl = document.getElementById('telefono');
+    const toastEl = document.getElementById('toast');
+    const charCountEl = document.getElementById('charCount');
+
+    // Valor por defecto del teléfono (editable).
+    // Mantengo el número original como ejemplo sin el '+', WhatsApp requiere número con código de país sin símbolos.
+    telefonoEl.value = "18299575543";
+
+    // Actualiza contador de caracteres
+    detalleEl.addEventListener('input', () => {
+        charCountEl.textContent = detalleEl.value.trim().length + " / " + detalleEl.maxLength;
+    });
+
+    // Muestra toast breve
+    function showToast(message, ms = 2500) {
+        toastEl.textContent = message;
+        toastEl.style.display = 'block';
+        setTimeout(() => {
+            toastEl.style.display = 'none';
+        }, ms);
+    }
+
+    // Validación básica del teléfono: elimina espacios y símbolos comunes
+    function normalizePhone(raw) {
+        if (!raw) return "";
+        // Quitar espacios, paréntesis, guiones y + (WhatsApp API necesita número en formato internacional sin signos)
+        return raw.replace(/[\\s()+-]/g, '');
+    }
+
+    function enviarConsulta() {
+        const nombre = nombreEl.value.trim();
+        const servicio = servicioEl.value;
+        const detalle = detalleEl.value.trim();
+        const telefonoRaw = telefonoEl.value.trim();
+
+        if (!nombre) {
+            nombreEl.focus();
+            showToast("Por favor indica tu nombre.");
+            return;
+        }
+        if (!detalle) {
+            detalleEl.focus();
+            showToast("Por favor describe el trabajo.");
             return;
         }
 
-        const mensaje = `*NUEVO PEDIDO - SOLUCIONES*%0A%0A` +
-                        `*Cliente:* ${nombre}%0A` +
-                        `*Servicio:* ${tipo}%0A` +
-                        `*Descripción:* ${desc}%0A` +
-                        `*Monto Pagado:* $${monto}%0A%0A` +
-                        `_Adjunto el comprobante a continuación..._`;
+        const telefono = normalizePhone(telefonoRaw);
+        if (!/^[0-9]{8,15}$/.test(telefono)) {
+            telefonoEl.focus();
+            showToast("Teléfono inválido. Incluye código de país sin símbolos.");
+            return;
+        }
 
-        const url = `https://wa.me/${telefono}?text=${mensaje}`;
-        window.open(url, '_blank');
+        // Construye mensaje con encodeURIComponent para seguridad y formato correcto
+        const mensajeLines = [
+            "*SOLICITUD DE PRESUPUESTO*",
+            "----------------------------",
+            "👤 *Cliente:* " + nombre,
+            "🛠️ *Servicio:* " + servicio,
+            "📝 *Detalle:* " + detalle,
+            "----------------------------",
+            "_Hola Joan, ¿qué precio tendría este trabajo?_"
+        ];
+        const mensaje = mensajeLines.join("\\n");
+        const encoded = encodeURIComponent(mensaje);
+
+        // URL de WhatsApp: usar wa.me/<phone>?text=<encoded>
+        const waUrl = `https://wa.me/${telefono}?text=${encoded}`;
+
+        // Abrir en nueva pestaña
+        window.open(waUrl, '_blank');
+
+        showToast("Abriendo WhatsApp...", 1800);
     }
-</script>
 
+    // Foco inicial accesible
+    window.addEventListener('load', () => {
+        nombreEl.focus();
+        charCountEl.textContent = detalleEl.value.trim().length + " / " + detalleEl.maxLength;
+    });
+
+    // Permitir enviar con Ctrl+Enter dentro del textarea
+    detalleEl.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            enviarConsulta();
+        }
+    });
+</script>
 </body>
 </html>
